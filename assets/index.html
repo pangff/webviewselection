@@ -11,7 +11,21 @@
 	font-size: 70px;
 	display: inline;
 }
+* {
+	-webkit-touch-callout: none;
+	/* prevent callout to copy image, etc when tap to hold */
+	/*-webkit-text-size-adjust: none;*/
+	/* prevent webkit from resizing text to fit */
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.15);
+	/* make transparent link selection, adjust last value opacity 0 to 1.0 */
+	/*-webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+}
 
+.highlight{ background-color: black; color: white; }
+
+div{
+	background-color: #ffd7b6;
+}
 span {
 	background-color: #ffd7b6;
 }
@@ -24,168 +38,5 @@ span {
 		<p>月球，俗称月亮，古称太阴，是环绕地球运行的一颗卫星。它是地球唯一的一颗天然卫星，也是离地球最近的天体（与地球之间的平均距离是38.4万千米）。1969年尼尔·阿姆斯特朗和巴兹·奥尔德林成为最先登陆月球的人类。1969年9月美国“阿波罗11号”宇宙飞船返回地球，美国“阿波罗”登月计划至阿波罗17号结束。另有2009年发行的美国同名电影《月球》。</p>
 		<p>月球是被人们研究得最彻底的天体。人类至今第二个亲身到过的天体就是月球。月球的年龄大约有46亿年。月球与地球一样有壳、幔、核等分层结构。最外层的月壳平均厚度约为60-65公里。月壳下面到1000公里深度是月幔，它占了月球的大部分体积。月幔下面是月核，月核的温度约为1000度，很可能是熔融状态的。月球直径约3474.8公里，大约是地球的1/4、太阳的1/400，月球到地球的距离相当于地球到太阳的距离的1/400，所以从地球上看去月亮和太阳一样大。月球的体积大概有地球的1/49，质量约7350亿亿吨，差不多相当于地球质量的1/81左右，月球表面的重力约是地球重力的1/6。</p>
 	</article>
-
-	<button id="selectAllPButton">选择所有p标签</button>
-	<br />
-	<button id="selectButton">鼠标选取内容前后分别加入span</button>
-	<br />
-	<button id="selectSurroundButton">鼠标选取内容环绕加入span</button>
-	<br />
-	<button id="scanButton">扫 描</button>
-	<br />
-	<button id="insertNodeButton">鼠标处加入字</button>
-	<br />
-	<div id="result"></div>
-
-	<script>
-		$(document)
-				.ready(
-						function() {
-							$('#scanButton')
-									.on(
-											'click',
-											function() {
-												var count = 0;
-												var content = document
-														.getElementById('content');
-
-												for ( var i = 0; i < content.childNodes.length; i++) {
-													var node = content.childNodes
-															.item(i);
-													var text = node.firstChild;
-													if (text.data.length > 0) {
-														for ( var j = 0; j < text.length; j++) {
-															var rangeObj = document
-																	.createRange();
-
-															rangeObj.setStart(
-																	text, j);
-															rangeObj
-																	.setEnd(
-																			text,
-																			j + 1);
-
-															var time = count * 100;
-
-															(function(str, time) {
-																setTimeout(
-																		function() {
-																			$(
-																					'#result')
-																					.html(
-																							str);
-																		}, time);
-															})
-																	(
-																			rangeObj
-																					.toString(),
-																			time);
-
-															count++;
-														}
-													}
-												}
-											});
-
-							$('#selectButton')
-									.on(
-											'click',
-											function() {
-												var selection = window
-														.getSelection();
-
-												console.log('range count: '
-														+ selection.rangeCount);
-
-												if (selection.rangeCount > 0) {
-													var range = selection
-															.getRangeAt(0);
-
-													var node = document
-															.createElement('span');
-													$(node).html('>>>');
-													range.insertNode(node);
-
-													range.collapse(false);
-
-													node = document
-															.createElement('span');
-													$(node).html('<<<');
-													range.insertNode(node);
-
-													console
-															.log('selection anchor node offset: '
-																	+ selection.anchorOffset);
-													console
-															.log('selection text: '
-																	+ range
-																			.toString());
-												}
-
-											});
-
-							$('#selectSurroundButton').on('click', function() {
-								var selection = window.getSelection();
-
-								if (selection.rangeCount > 0) {
-									var range = selection.getRangeAt(0);
-
-									var node = document.createElement('span');
-									range.surroundContents(node);
-								}
-
-							});
-
-							$('#selectAllPButton')
-									.on(
-											'click',
-											function() {
-												var selection = window
-														.getSelection();
-												var tags = $('p');
-												selection.removeAllRanges();
-												for ( var i = 0; i < tags.length; i++) {
-													var range = document
-															.createRange();
-													range.selectNode(tags[i]);
-													selection.addRange(range);
-													console
-															.log('selection range count:'
-																	+ selection.rangeCount);
-												}
-											});
-
-							$('#insertNodeButton').on(
-									'click',
-									function() {
-										var selection = window.getSelection();
-										if (selection.rangeCount > 0) {
-											var range = window.getSelection()
-													.getRangeAt(0);
-											var node = document
-													.createElement('span');
-											$(node).html('k');
-											range.insertNode(node);
-										}
-
-									});
-
-							$(document).on(
-									'selectionchange',
-									function() {
-										console.log('selection change');
-										var selection = window.getSelection();
-										if (selection.rangeCount > 0) {
-											var range = window.getSelection()
-													.getRangeAt(0);
-											console.log(range.toString());
-										}
-									});
-
-							$(document).on('selectstart', function() {
-								console.log('selection start');
-							});
-						});
-	</script>
 </body>
 </html>
