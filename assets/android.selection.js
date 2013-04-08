@@ -58,8 +58,7 @@ android.selection.longTouch = function() {
 
 		android.selection.selectionStartRange = oneWordCaret;
 
-		var selectionStart = $("<span id=\"selectionStart\"></span>");
-		oneWordCaret.insertNode(selectionStart[0]);
+		
 		
 		sel.addRange(oneWordCaret);
 
@@ -74,7 +73,12 @@ android.selection.endTouch = function(){
 	var sel = window.getSelection();
 	sel.removeAllRanges();
 	
+	var selectionEnd = $("<a id=\"selectionEnd\"></a>");
+	var selectionStart = $("<a id=\"selectionStart\"></a>");
+	android.selection.selectionStartRange.insertNode(selectionStart[0]);
+	android.selection.selectionEndRange.insertNode(selectionEnd[0]);
 	var newNode = document.createElement("span");
+	
 	
 	var sNode = document.getElementById("selectionStart");
 	var endNode = document.getElementById("selectionEnd");
@@ -107,18 +111,20 @@ android.selection.moveTouch = function(x, y) {
 
 	android.selection.selectionEndRange = document.caretRangeFromPoint(x, y);
 
-	var selectionEnd = $("<span id=\"selectionEnd\"></span>");
-	android.selection.selectionEndRange.insertNode(selectionEnd[0]);
+//	var selectionEnd = $("<a id=\"selectionEnd\"></a>");
+//	android.selection.selectionEndRange.insertNode(selectionEnd[0]);
 
 
-	var sNode = document.getElementById("selectionStart");
-	endNode = document.getElementById("selectionEnd");
+//	var sNode = document.getElementById("selectionStart");
+//	endNode = document.getElementById("selectionEnd");
 	
 	var sel = window.getSelection();
 	var range = sel.getRangeAt(0)
-	range.setStartAfter(sNode);
-	range.setEndBefore(endNode);
+//	range.setStartAfter(sNode);
+//	range.setEndBefore(endNode);
 	
+	range.setStart(android.selection.selectionStartRange.startContainer,android.selection.selectionStartRange.startOffset);
+	range.setEnd(android.selection.selectionEndRange.startContainer,android.selection.selectionEndRange.startOffset);
 	sel.removeAllRanges();
 	sel.addRange(range);
 	

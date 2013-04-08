@@ -5,12 +5,18 @@
 <title>Range Demo</title>
 <script src="jquery-1.9.1.min.js"></script>
 <script src="android.selection.js"></script>
+<link href="book.css" rel="stylesheet" type="text/css">
 <style>
 #result {
 	background-color: #bceeff;
 	font-size: 70px;
 	display: inline;
 }
+
+::selection { color:#333; background-color:#cce8cf;}
+::-moz-selection { color:#333; background-color:#cce8cf;}
+::-webkit-selection { color:#333; background-color:#cce8cf;}
+
 * {
 	-webkit-touch-callout: none;
 	/* prevent callout to copy image, etc when tap to hold */
@@ -32,11 +38,12 @@ span {
 </style>
 </head>
 <body>
-	<p>月球，俗称月亮，古称太阴，是环绕地球运行的一颗卫星。它是地球唯一的一颗天然卫星....</p>
-	<div>月球本身并不发光，只反射太阳光..</div>
-	<article id='content'>
+<section id="doc">
+	<article id='content' class="bigblue bigblueselect">
+		<p>月球，俗称月亮，古称太阴，是环绕地球运行的一颗卫星。它是地球唯一的一颗天然卫星....</p>
 		<p>月球，俗称月亮，古称太阴，是环绕地球运行的一颗卫星。它是地球唯一的一颗天然卫星，也是离地球最近的天体（与地球之间的平均距离是38.4万千米）。1969年尼尔·阿姆斯特朗和巴兹·奥尔德林成为最先登陆月球的人类。1969年9月美国“阿波罗11号”宇宙飞船返回地球，美国“阿波罗”登月计划至阿波罗17号结束。另有2009年发行的美国同名电影《月球》。</p>
 		<p>月球是被人们研究得最彻底的天体。人类至今第二个亲身到过的天体就是月球。月球的年龄大约有46亿年。月球与地球一样有壳、幔、核等分层结构。最外层的月壳平均厚度约为60-65公里。月壳下面到1000公里深度是月幔，它占了月球的大部分体积。月幔下面是月核，月核的温度约为1000度，很可能是熔融状态的。月球直径约3474.8公里，大约是地球的1/4、太阳的1/400，月球到地球的距离相当于地球到太阳的距离的1/400，所以从地球上看去月亮和太阳一样大。月球的体积大概有地球的1/49，质量约7350亿亿吨，差不多相当于地球质量的1/81左右，月球表面的重力约是地球重力的1/6。</p>
 	</article>
+</section>
 </body>
 </html>
